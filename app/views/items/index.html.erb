@@ -1,0 +1,33 @@
+<h1>Your Cart</h1>
+<h3><%=link_to "All Products", products_path%></h3>
+<%sum=0.00%>
+<table class="responstable">
+	<tr>
+		<td>Sl. Number</td>
+		<td>Product</td>
+		<td>Unit Price</td>
+		<td>Quantity</td>
+		<td>Price</td>
+	</tr>
+	<%@items.each_with_index do |item, index|%>
+		<tr>
+			<td><%=index+1%></td>
+			<td><%=item.product.name%>
+			<td><%=item.product.price%>
+			<td><%=form_for item do |f|%>
+					<%=f.select :quantity, (1..10).to_a%>
+					<%=f.submit "Update quantity", class:"btn btn-primary"%>
+				<%end%>
+			</td>
+			<td><%=item.product.price * item.quantity%></td>
+			<%sum = sum + (item.product.price * item.quantity)%>
+			<td><div class="btn-group" role="group" aria-label="...">
+					<%=link_to item_path(item.id), method: :delete, class:"btn btn-danger",data: {confirm: "Arer you sure"} do%>
+						<i class="glyphicon glyphicon-remove"></i>Delete Item from Cart
+					<%end%>
+				</div>
+		</tr>
+	<%end%>
+</table>
+<h2>Total Price</h2>
+<%=sum%>	

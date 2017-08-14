@@ -1,0 +1,20 @@
+<table class="responstable">
+	<thead>
+		<tr>
+			<td>Sl. Number</td>
+  			<td>Name</td>
+  			<td>Price</td>
+  			<td>Category</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @products.each_with_index do |product,index|%>
+			<tr>
+				<td><%=index+1%></td>
+				<td><%=link_to product.name, product_path(product.id)%></td>
+				<td><%=product.price%></td>
+				<td><%=link_to product.category.name, category_path(product.category_id)%></td>
+			</tr>
+		<%end%>
+	</tbody>
+</table>

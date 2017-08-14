@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Categories</h1>
+
+<table class="responstable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Product Count</th>
+      <th>Show Category</th>
+      <th>Edit Category</th>
+      <th>Delete Category</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= Product.where('category_id = ?', category.id).count%></td>
+        <td><%= link_to 'Show', category, class:"btn btn-info"%></td>
+        <td><%= link_to 'Edit', edit_category_path(category), class:"btn btn-primary"%></td>
+        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger"%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category', new_category_path %>

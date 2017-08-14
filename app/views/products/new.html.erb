@@ -1,0 +1,55 @@
+<h1>New Product</h1>
+<%= form_for @product do |f|%>
+	<%errors = @product.errors.messages%>
+	<%= f.text_field :name, placeholder: "Name", autofocus:"true"%><span id= "name_error"> </span><br/>
+	<%if errors.has_key?(:name)%>
+		<%=errors[:name].join(",") unless errors[:name].empty?%><br/>
+	<%end%>
+	<%= f.text_area :description, placeholder: "Description"%><span id="description_error"> </span><br/>
+	<% if errors.has_key?(:description)%>
+		<%= errors[:description].join(",") unless errors[:description].empty? %><br/>
+	<%end%>
+	<%= f.number_field :price, min: 1, placeholder: "Price", step: 0.1%><span id= "price_error"> </span><br/>
+	<%if errors.has_key?(:price)%>
+		<%=errors[:price].join(",") unless errors[:price].empty?%><br/>
+	<%end%>
+	<%= f.collection_select :category_id, Category.all, :id, :name, prompt: "Select Category"%> <br />
+	<%if errors.has_key?(:category_id)%>
+		<%=errors[:category_id].join(",") unless errors[:category_id].empty?%></br>
+	<%end%>
+	<%= f.submit%>
+<%end%>
+
+<script>
+	nameHandle = document.getElementById('product_name');
+	nameErrorHandle = document.getElementById('name_error');
+	descriptionHandle = document.getElementById("product_description");
+	descriptionErrorHandle = document.getElementById("description_error");
+	priceHandle = document.getElementById('product_price');
+	priceErrorHandle = document.getElementById('price_error');
+	nameHandle.onblur = function(){
+		if (nameHandle.value == ""){
+			nameErrorHandle.innerHTML = "Name can't be blank";
+		}
+		else {
+			nameErrorHandle.innerHTML = "";
+		}
+	};
+	descriptionHandle.onblur = function(){
+		console.log("inside");
+		if (descriptionHandle.value == ""){
+			descriptionErrorHandle.innerHTML = "Description can't be blank";
+		}
+		else{
+			descriptionErrorHandle.innerHTML = "";
+		}
+	};
+	priceHandle.onblur = function(){
+		if (priceHandle.value == "" ){
+			priceErrorHandle.innerHTML = "Price can't be blank";
+		}
+		else {
+			priceErrorHandle.innerHTML = "";
+		}
+	};
+</script>

@@ -1,0 +1,10 @@
+<h1 style = "text-align:center">Products</h1>
+<%if user_signed_in?%>
+	<h1 style = "text-align: right"><%=link_to "Your Cart", items_path%></h1>
+<%end%>
+<%if user_signed_in? && current_user.is_admin%>
+	<h1 style = "text-align:right"><%= link_to "New Product", new_product_path%></h1>
+<%end%>
+
+<%= render 'table' %>
+
